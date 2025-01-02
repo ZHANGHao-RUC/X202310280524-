@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>钱伟长在江苏的学术足迹</title>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <!-- 引入江苏省地图数据 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/jiangsu.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 1000px; height: 600px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'), 'dark'); // 使用暗色主题
+
+        var cityCoordinates = {
+            '南京': [118.796877, 32.060255],
+            '苏州': [120.585316, 31.298886],
+            '无锡': [120.301663, 31.574729],
+            '常州': [119.981861, 31.771397],
+            '扬州': [119.412966, 32.39421]
+        };
+
+        var cityDescriptions = {
+            '南京': '2000年 - 开始在南京大学工作',
+            '苏州': '2005年 - 参与在苏州大学的研究项目',
+            '无锡': '2010年 - 在无锡的科技公司担任研发主管',
+            '常州': '2015年 - 参加常州大学的学术讲座',
+            '扬州': '2019年 - 参与扬州市的科研合作'
+        };
+
+        var timelineData = ['2000', '2002', '2005', '2008', '2011', '2014', '2017', '2020'];
+        var options = timelineData.map(function (year, index) {
+            var pointsData = [];
+            var linesData = [];
+
+            Object.keys(cityCoordinates).slice(0, index + 1).forEach(function(city, idx) {
+                pointsData.push({
+                    name: city,
+                    value: cityCoordinates[city].concat(year),
+                    description: cityDescriptions[city],
+                    label: {
+                        show: idx === index, // 仅在当前索引节点显示标签
+                        formatter: '{b}: ' + cityDescriptions[city],
+                        position: 'right',
+                        color: '#fff'
+                    }
+                });
+
+                if (idx > 0) {
+                    linesData.push({
+                        coords: [
+                            cityCoordinates[Object.keys(cityCoordinates)[idx - 1]],
+                            cityCoordinates[city]
+                        ]
+                    });
+                }
+            });
+
+            return {
+                title: {text: year + '年 - ' + Object.keys(cityCoordinates)[index]},
+                series: [
+                    {data: pointsData},
+                    {data: linesData}
+                ]
+            };
+        });
+
+        var option = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    autoPlay: true,
+                    playInterval: 3000,
+                    data: timelineData,
+                    label: {
+                        formatter: function (s) {
+                            return (new Date(s)).getFullYear();
+                        }
+                    }
+                },
+                title: {
+                    text: '钱伟长在江苏的学术足迹',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        return params.name + ': ' + params.marker + params.data.description;
+                    }
+                },
+                geo: {
+                    map: '江苏',
+                    roam: true,
+                    emphasis: {
+                        itemStyle: {
+                            areaColor: '#f4e925',
+                            shadowOffsetX: 0,
+                            shadowOffsetY: 0,
+                            shadowBlur: 20,
+                            borderWidth: 0,
+                            shadowColor: 'rgba(255, 255, 255, 0.5)'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderColor: 'rgba(147, 235, 248, 1)',
+                            borderWidth: 1,
+                            areaColor: '#323c48'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: '足迹',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        symbolSize: 10,
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        itemStyle: {
+                            color: '#f4e925',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        },
+                        data: []
+                    },
+                    {
+                        name: '路径',
+                        type: 'lines',
+                        coordinateSystem: 'geo',
+                        lineStyle: {
+                            color: '#ffa022',
+                            width: 2,
+                            opacity: 0.6,
+                            curveness: 0.3
+                        },
+                        effect: {
+                            show: true,
+                            constantSpeed: 30,
+                            symbol: 'arrow',
+                            symbolSize: 5,
+                            trailLength: 0,
+                            color: '#ffa022'
+                        },
+                        data: []
+                    }
+                ]
+            },
+            options: options
+        };
+
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

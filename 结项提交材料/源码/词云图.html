@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态词云</title>
+    <style>
+        .wordCloud {
+            width: 100%;
+            height: 600px;             position: relative;
+            overflow: hidden;
+            background-color:  #000; /* 背景色 */
+        }
+ .wordCloud span {
+        font-family: KaiTi;
+    </style>
+</head>
+<body>
+    <div id="app">
+        <word-cloud></word-cloud>
+    </div>
+
+    <!-- 引入 Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script>
+        Vue.component('word-cloud', {
+            template: `
+                <div class="wordCloud" ref="wordCloud"></div>
+            `,
+            data() {
+                return {
+                    hotWord:  [
+{"name":"学术谱系", "value":123.00},
+{"name":"关系", "value":57.00},
+{"name":"研究", "value":30.00},
+{"name":"传承", "value":28.00},
+{"name":"中国", "value":22.00},
+{"name":"科学家", "value":21.00},
+{"name":"学者", "value":17.00},
+{"name":"导师", "value":17.00},
+{"name":"共同体", "value":16.00},
+{"name":"师承", "value":16.00},
+{"name":"传统", "value":16.00},
+
+{"name":"知识", "value":12.00},
+{"name":"学生", "value":11.00},
+{"name":"科学", "value":11.00},
+{"name":"群体", "value":11.00},
+{"name":"学科", "value":10.00},
+
+
+{"name":"家谱", "value":9.00},
+
+{"name":"领域", "value":8.00},
+{"name":"指导", "value":8.00},
+{"name":"代际", "value":8.00},
+
+{"name":"博士", "value":8.00},
+
+{"name":"研究者", "value":7.00},
+
+{"name":"核心", "value":7.00},
+{"name":"结构", "value":7.00},
+{"name":"体系", "value":7.00},
+{"name":"族谱", "value":7.00},
+{"name":"老师", "value":6.00},
+{"name":"产生", "value":6.00},
+{"name":"影响", "value":6.00},
+{"name":"不同", "value":6.00},
+{"name":"范式", "value":6.00},
+
+{"name":"继承", "value":5.00},
+{"name":"家族", "value":5.00},
+
+{"name":"社会", "value":5.00},
+{"name":"网络", "value":5.00},
+
+{"name":"关联", "value":5.00},
+
+
+{"name":"学派", "value":5.00},
+
+{"name":"学术研究", "value":5.00},
+
+{"name":"共同", "value":5.00},
+{"name":"概念", "value":5.00},
+
+{"name":"思想", "value":5.00},
+{"name":"社会科学", "value":5.00},
+
+{"name":"大师", "value":4.00},
+{"name":"认同", "value":8.00},
+
+{"name":"成员", "value":4.00},
+
+{"name":"学术史", "value":6.00},
+
+{"name":"学术思想", "value":4.00},
+
+{"name":"学理", "value":4.00},
+
+
+{"name":"学人", "value":3.00},
+
+
+{"name":"血统", "value":3.00},
+{"name":"祖先", "value":3.00},
+
+{"name":"研究生", "value":3.00},
+
+{"name":"流派", "value":3.00},
+{"name":"建构", "value":3.00},
+{"name":"先生", "value":3.00},
+
+
+{"name":"血脉", "value":3.00},
+
+{"name":"范型", "value":3.00},
+{"name":"价值", "value":3.00},
+{"name":"教育", "value":3.00},
+{"name":"史观", "value":3.00},
+{"name":"史料", "value":3.00},
+
+{"name":"哲学", "value":3.00},
+
+
+{"name":"血缘关系", "value":2.00},
+{"name":"传授", "value":2.00},
+
+{"name":"培养", "value":8.00},
+{"name":"一流人才", "value":2.00},
+
+{"name":"权威", "value":2.00},
+
+{"name":"纲领", "value":2.00},
+{"name":"规范", "value":2.00},
+{"name":"科学知识", "value":2.00},
+
+{"name":"师徒关系", "value":100.00},
+
+{"name":"学缘", "value":13.00},
+
+
+{"name":"彼此间", "value":1.00},
+{"name":"前人", "value":1.00},
+
+{"name":"领军人物", "value":1.00},
+
+{"name":"延续", "value":1.00},
+
+{"name":"学术活动", "value":1.00},
+
+{"name":"其内", "value":1.00},
+{"name":"成熟", "value":1.00},
+{"name":"经典", "value":1.00},
+{"name":"外部", "value":1.00},
+
+{"name":"文化氛围", "value":1.00},
+
+
+{"name":"人才", "value":7.00},
+{"name":"聚集", "value":1.00},
+
+{"name":"社会关系", "value":1.00},
+
+{"name":"发展史", "value":1.00},
+
+{"name":"科研", "value":1.00},
+{"name":"工作者", "value":1.00},
+{"name":"一脉相传", "value":1.00},
+{"name":"树状", "value":1.00},
+{"name":"序列", "value":1.00},
+
+{"name":"研究成果", "value":1.00},
+{"name":"图谱", "value":1.00},
+{"name":"师生", "value":1.00},
+{"name":"领导", "value":1.00},
+],
+                    color: ['#a18cd1', '#fad0c4', '#ff8177', '#fecfef', '#fda085', '#f5576c', '#fe9a8b', '#30cfd0', '#38f9d7'],
+                    wordArr: [],
+                    timer: null,
+                    resetTime: 10,
+                    ContainerSize: ''
+		
+                };
+            },
+            mounted() {
+                this.init();
+            },
+            methods: {
+                init() {
+                    this.dealSpan();
+                    this.initWordPos();
+                   
+                },
+               dealSpan() {
+    const wordArr = [];
+    const maxValue = Math.max(...this.hotWord.map(item => item.value));
+    const fontSizeMultiplier = 5; // This sets the range of variation in font size
+
+    // Iterate over the hotWord array to create span elements for each word
+    this.hotWord.forEach((item) => {
+        const spanDom = document.createElement('span');
+        spanDom.style.position = 'absolute';
+        spanDom.style.color = this.randomColor(); // Ensure this function returns readable colors
+        const fontSize =(item.value / 4)  + 20;
+        spanDom.style.fontSize = `${fontSize}px`; // Set font size
+        spanDom.textContent = item.name; // Set text content
+
+        // Initialize movement and position properties
+        spanDom.local = {
+            position: { x: 0, y: 0 },
+            direction: { x: 1, y: 1 },
+            velocity: { x: -0.5 + Math.random(), y: -0.5 + Math.random() }
+        };
+
+        // Append the span to the word cloud container
+        this.$refs.wordCloud.appendChild(spanDom);
+        // Push the span element into the wordArr for further manipulation
+        wordArr.push(spanDom);
+    });
+
+    // Update the wordArr in the data object
+    this.wordArr = wordArr;
+},
+
+                randomColor() {
+                    var colorIndex = Math.floor(this.color.length * Math.random());
+                    return this.color[colorIndex];
+                },
+                randomNumber(lowerInteger, upperInteger) {
+                    const choices = upperInteger - lowerInteger + 1;
+                    return Math.floor(Math.random() * choices + lowerInteger);
+                },
+                render() {
+        this.timer = requestAnimationFrame(this.render.bind(this));
+        this.wordFly();
+    },
+    wordFly() {
+        this.wordArr.forEach((span) => {
+            const leftBoundary = this.ContainerSize.leftPos.x;
+            const rightBoundary = this.ContainerSize.rightPos.x - span.offsetWidth; // right boundary considering span's width
+            const topBoundary = this.ContainerSize.leftPos.y;
+            const bottomBoundary = this.ContainerSize.rightPos.y - span.offsetHeight; // bottom boundary considering span's height
+
+            // Check collision with the left or right boundaries
+            if (span.local.realPos.minx + span.local.position.x < leftBoundary || span.local.realPos.maxx + span.local.position.x > rightBoundary) {
+                span.local.direction.x *= -1; // Reverse direction on x-axis
+            }
+            // Check collision with the top or bottom boundaries
+            if (span.local.realPos.miny + span.local.position.y < topBoundary || span.local.realPos.maxy + span.local.position.y > bottomBoundary) {
+                span.local.direction.y *= -1; // Reverse direction on y-axis
+            }
+            // Apply velocity and direction to the current position
+            span.local.position.x += span.local.velocity.x * span.local.direction.x;
+            span.local.position.y += span.local.velocity.y * span.local.direction.y;
+
+            // Apply the new position to the span element
+            span.style.transform = `translate(${span.local.position.x}px, ${span.local.position.y}px)`;
+        });
+    },
+initWordPos() {
+    this.$nextTick(() => {
+        this.wordArr.forEach((span) => {
+            const rect = span.getBoundingClientRect();
+            span.local.realPos = {
+                minx: rect.left,
+                maxx: rect.right,
+                miny: rect.top,
+                maxy: rect.bottom
+            };
+        });
+        this.ContainerSize = this.getContainerSize();
+        if (this.ContainerSize) {
+            this.render(); // 只有在 ContainerSize 正确初始化后才开始渲染
+        } else {
+            console.error("Failed to initialize ContainerSize");
+        }
+    });
+},
+               getContainerSize() {
+    const el = this.$refs.wordCloud;
+    if (!el) {
+        console.error("wordCloud element not found");
+        return {
+            leftPos: { x: 0, y: 0 },
+            rightPos: { x: 0, y: 0 }
+        }; // 提供一个初始值以防止错误
+    }
+    return {
+        leftPos: { x: el.offsetLeft, y: el.offsetTop },
+        rightPos: { x: el.offsetLeft + el.offsetWidth, y: el.offsetTop + el.offsetHeight }
+    };
+},
+
+            },
+            destroyed() {
+                cancelAnimationFrame(this.timer);
+            }
+        });
+
+        new Vue({
+            el: '#app'
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>钱伟长的学术足迹</title>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <!-- 引入江苏省地图数据 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/jiangsu.js"></script>
+    <!-- 引入中国地图数据 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <style>
+        #container {
+            width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        #main {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+        }
+        .btn-container {
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .btn-container button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-container button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>钱伟长的学术足迹</h1>
+        <div class="btn-container">
+            <button onclick="showJiangsuData()">江苏数据</button>
+            <button onclick="showChinaData()">全国数据</button>
+        </div>
+        <div id="main"></div>
+    </div>
+
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'), 'dark'); // 使用暗色主题
+
+        var jiangsuOption = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    autoPlay: true,
+                    playInterval: 3000,
+                    data: ['2000', '2002', '2005', '2008', '2011', '2014', '2017', '2020'],
+                    label: {
+                        formatter: function (s) {
+                            return (new Date(s)).getFullYear();
+                        }
+                    }
+                },
+                title: {
+                    text: '钱伟长在江苏的学术足迹',
+                    left: 'center',
+                    textStyle: {
+                        color: '#333',
+                        fontSize: 20,
+                        fontWeight: 'bold'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        return params.name + ': ' + params.marker + params.data.description;
+                    }
+                },
+                geo: {
+                    map: '江苏',
+                    roam: true,
+                    emphasis: {
+                        itemStyle: {
+                            areaColor: '#f4e925',
+                            shadowOffsetX: 0,
+                            shadowOffsetY: 0,
+                            shadowBlur: 20,
+                            borderWidth: 0,
+                            shadowColor: 'rgba(255, 255, 255, 0.5)'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderColor: 'rgba(147, 235, 248, 1)',
+                            borderWidth: 1,
+                            areaColor: '#f0f0f0'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: '足迹',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        symbolSize: 10,
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        itemStyle: {
+                            color: '#f4e925',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        },
+                        data: [
+                            { name: '南京', value: [118.796877, 32.060255, '2000'], description: '开始在南京大学任教' },
+                            { name: '苏州', value: [120.585316, 31.298886, '2002'], description: '参与苏州大学研究项目' },
+                            { name: '无锡', value: [120.31191, 31.49117, '2005'], description: '与无锡工业大学合作举办讲座' },
+                            { name: '常州', value: [119.946973, 31.772752, '2008'], description: '参加常州科技论坛' },
+                            { name: '南通', value: [120.873801, 32.014665, '2011'], description: '在南通大学进行学术交流' },
+                            { name: '扬州', value: [119.412966, 32.39421, '2014'], description: '访问扬州大学进行合作研究' },
+                            { name: '徐州', value: [117.284124, 34.205768, '2017'], description: '参加徐州医科大学研讨会' },
+                            { name: '淮安', value: [119.021265, 33.597506, '2020'], description: '淮安科技创新论坛主持' }
+                        ]
+                    },
+                    {
+                        name: '路径',
+                        type: 'lines',
+                        coordinateSystem: 'geo',
+                        lineStyle: {
+                            color: '#ffa022',
+                            width: 2,
+                            opacity: 0.6,
+                            curveness: 0.3
+                        },
+                        effect: {
+                            show: true,
+                            constantSpeed: 30,
+                            symbol: 'arrow',
+                            symbolSize: 5,
+                            trailLength: 0,
+                            color: '#ffa022'
+                        },
+                        data: [
+                            { coords: [[118.796877, 32.060255], [120.585316, 31.298886]] },
+                            { coords: [[120.585316, 31.298886], [120.31191, 31.49117]] },
+                            { coords: [[120.31191, 31.49117], [119.946973, 31.772752]] },
+                            { coords: [[119.946973, 31.772752], [120.873801, 32.014665]] },
+                            { coords: [[120.873801, 32.014665], [119.412966, 32.39421]] },
+                            { coords: [[119.412966, 32.39421], [117.284124, 34.205768]] },
+                            { coords: [[117.284124, 34.205768], [119.021265, 33.597506]] }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        var chinaOption = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    autoPlay: true,
+                    playInterval: 3000,
+                    data: ['2000', '2002', '2005', '2008', '2011', '2014', '2017', '2020'],
+                    label: {
+                        formatter: function (s) {
+                            return (new Date(s)).getFullYear();
+                        }
+                    }
+                },
+                title: {
+                    text: '钱伟长在中国的学术足迹',
+                    left: 'center',
+                    textStyle: {
+                        color: '#333',
+                        fontSize: 20,
+                        fontWeight: 'bold'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        return params.name + ': ' + params.marker + params.data.description;
+                    }
+                },
+                geo: {
+                    map: 'china',
+                    roam: true,
+                    emphasis: {
+                        itemStyle: {
+                            areaColor: '#f4e925',
+                            shadowOffsetX: 0,
+                            shadowOffsetY: 0,
+                            shadowBlur: 20,
+                            borderWidth: 0,
+                            shadowColor: 'rgba(255, 255, 255, 0.5)'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderColor: 'rgba(147, 235, 248, 1)',
+                            borderWidth: 1,
+                            areaColor: '#f0f0f0'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: '足迹',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        symbolSize: 10,
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        itemStyle: {
+                            color: '#f4e925',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        },
+                        data: [
+                            { name: '北京', value: [116.4074, 39.9042, '2000'], description: '开始在中国科学院工作' },
+                            { name: '上海', value: [121.4737, 31.2304, '2002'], description: '参与在复旦大学的研究项目' },
+                            { name: '成都', value: [104.0668, 30.6595, '2005'], description: '在四川地震后进行科学考察' },
+                            { name: '广州', value: [113.2644, 23.1291, '2008'], description: '在广州的高校进行科研交流' },
+                            { name: '长沙', value: [112.9823, 28.1941, '2011'], description: '参与长沙的环境科学项目' },
+                            { name: '西安', value: [108.9398, 34.3416, '2014'], description: '在西安的大学进行科学研究和讲座' },
+                            { name: '杭州', value: [120.1551, 30.2741, '2017'], description: '参加在杭州举行的科技会议' },
+                            { name: '武汉', value: [114.3054, 30.5931, '2020'], description: '在华中科技大学进行学术讲座' }
+                        ]
+                    },
+                    {
+                        name: '路径',
+                        type: 'lines',
+                        coordinateSystem: 'geo',
+                        lineStyle: {
+                            color: '#ffa022',
+                            width: 2,
+                            opacity: 0.6,
+                            curveness: 0.3
+                        },
+                        effect: {
+                            show: true,
+                            constantSpeed: 30,
+                            symbol: 'arrow',
+                            symbolSize: 5,
+                            trailLength: 0,
+                            color: '#ffa022'
+                        },
+                        data: [
+                            { coords: [[116.4074, 39.9042], [121.4737, 31.2304]] },
+                            { coords: [[121.4737, 31.2304], [104.0668, 30.6595]] },
+                            { coords: [[104.0668, 30.6595], [113.2644, 23.1291]] },
+                            { coords: [[113.2644, 23.1291], [112.9823, 28.1941]] },
+                            { coords: [[112.9823, 28.1941], [108.9398, 34.3416]] },
+                            { coords: [[108.9398, 34.3416], [120.1551, 30.2741]] },
+                            { coords: [[120.1551, 30.2741], [114.3054, 30.5931]] }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        var jiangsuData = {
+            baseOption: jiangsuOption.baseOption,
+            options: jiangsuOption.baseOption.series
+        };
+
+        var chinaData = {
+            baseOption: chinaOption.baseOption,
+            options: chinaOption.baseOption.series
+        };
+
+        function showJiangsuData() {
+            myChart.clear();
+            myChart.setOption(jiangsuData);
+        }
+
+        function showChinaData() {
+            myChart.clear();
+            myChart.setOption(chinaData);
+        }
+
+        // 默认显示江苏数据
+        showJiangsuData();
+    </script>
+</body>
+</html>

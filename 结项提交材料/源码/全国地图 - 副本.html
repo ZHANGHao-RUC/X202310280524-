@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>钱伟长国内的学术足迹</title>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <!-- 引入中国地图数据 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 1000px; height: 600px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'), 'dark'); // 使用暗色主题
+
+var cityCoordinates = {
+    '江苏无锡': [120.3119, 31.4912],
+    '浙江杭州市临安区': [119.724733, 30.233873],
+    '天津耀华中学': [117.1923, 39.0938],
+    '西南联大': [102.7103, 25.0458],
+    '多伦多大学': [-79.3967, 43.6629],
+    '加州理工学院': [-118.1253, 34.1377],
+    '清华大学': [116.3269, 40.0076],
+    '北京大学': [116.3054, 39.9869],
+    '燕京大学': [116.3537, 39.9913],
+    '北京': [116.4074, 39.9042],
+    '英国': [-3.4350, 55.3781],
+    '瑞典': [18.6435, 60.1282],
+    '加拿大': [-106.3468, 56.1304],
+    '波兰': [19.1451, 51.9194],
+    '罗马尼亚': [25.0136, 45.9432],
+    '匈牙利': [19.5033, 47.1625],
+    '捷克': [15.4729, 49.8175],
+    '民主德国': [13.404954, 52.5200066],
+    '缅甸': [95.9562, 21.9162],
+    '印度': [78.9629, 20.5937],
+    '香港': [114.1694, 22.3193],
+    '澳门': [113.5439, 22.1987],
+    '上海工业大学': [121.4337, 31.1981],
+    '上海大学': [121.4365, 31.2553],
+    '北京特种钢厂': [116.2824, 39.9221],
+    '石景山': [116.1846, 39.9046],
+    '良乡': [116.1467, 39.7267],
+    '美国': [-95.7129, 37.0902],
+    '南京航空航天大学': [118.8263, 32.0838]
+};
+
+var cityDescriptions = {
+    '江苏无锡': '钱伟长出生地',
+    '浙江杭州市临安区': '钱伟长祖籍',
+    '天津耀华中学': '任教近一年以积蓄旅费',
+    '西南联大': '讲授热力学',
+    '多伦多大学': '获得博士学位',
+    '加州理工学院': '研究航空航天领域',
+    '清华大学': '钱伟长教授和领导职务所在地',
+    '北京大学': '钱伟长任教',
+    '燕京大学': '钱伟长任教',
+    '北京': '钱伟长任职清华大学和多所大学',
+    '英国': '科学家代表团访问地',
+    '瑞典': '科学家代表团访问地',
+    '加拿大': '科学家代表团访问地',
+    '波兰': '参加力学会议',
+    '罗马尼亚': '科学家代表团访问地',
+    '匈牙利': '科学家代表团访问地',
+    '捷克': '科学家代表团访问地',
+    '民主德国': '科学家代表团访问地',
+    '缅甸': '随中国文化代表团访问',
+    '印度': '随中国文化代表团访问',
+    '香港': '为回归奔走',
+    '澳门': '为回归奔走',
+    '上海工业大学': '钱伟长担任校长',
+    '上海大学': '钱伟长担任校长',
+    '北京特种钢厂': '文革期间劳动锻炼',
+    '石景山': '欢迎解放军',
+    '良乡': '欢迎解放军',
+    '美国': '钱伟长任研究工程师的国家',
+    '南京航空航天大学': '担任名誉校长'
+};
+
+var timelineData = [
+    '1913', 
+    '1931', 
+    '1935', 
+    '1937', 
+    '1939', 
+    '1942', 
+    '1943', 
+    '1946', 
+    '1949', 
+    '1950', 
+    '1951', 
+    '1952', 
+    '1954', 
+    '1955', 
+    '1956', 
+    '1957', 
+    '1958', 
+    '1966', 
+    '1968', 
+    '1971', 
+    '1972', 
+    '1974', 
+    '1980', 
+    '1981', 
+    '1982', 
+    '1983', 
+    '1984', 
+    '1985', 
+    '1986', 
+    '1987', 
+    '1988', 
+    '1989', 
+    '1990', 
+    '1992', 
+    '1993', 
+    '1994', 
+    '1997', 
+    '1998', 
+    '2003', 
+    '2010', 
+    '2011'
+];
+
+
+        var options = timelineData.map(function (year, index) {
+            var pointsData = [];
+            var linesData = [];
+
+            Object.keys(cityCoordinates).slice(0, index + 1).forEach(function(city, idx) {
+                pointsData.push({
+                    name: city,
+                    value: cityCoordinates[city].concat(year),
+                    description: cityDescriptions[city],
+                    label: {
+                        show: idx === index, // 仅在当前索引节点显示标签
+                        formatter: '{b}: ' + cityDescriptions[city],
+                        position: 'right',
+                        color: '#fff'
+                    }
+                });
+
+                if (idx > 0) {
+                    linesData.push({
+                        coords: [
+                            cityCoordinates[Object.keys(cityCoordinates)[idx - 1]],
+                            cityCoordinates[city]
+                        ]
+                    });
+                }
+            });
+
+            return {
+                title: {text: year + '年 - ' + Object.keys(cityCoordinates)[index]},
+                series: [
+                    {data: pointsData},
+                    {data: linesData}
+                ]
+            };
+        });
+
+        var option = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    autoPlay: true,
+                    playInterval: 3000,
+                    data: timelineData,
+                    label: {
+                        formatter: function (s) {
+                            return (new Date(s)).getFullYear();
+                        }
+                    }
+                },
+                title: {
+                    text: '钱伟长国内的学术足迹',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        return params.name + ': ' + params.marker + params.data.description;
+                    }
+                },
+                geo: {
+                    map: 'china',
+                    roam: true,
+                    emphasis: {
+                        itemStyle: {
+                            areaColor: '#f4e925',
+                            shadowOffsetX: 0,
+                            shadowOffsetY: 0,
+                            shadowBlur: 20,
+                            borderWidth: 0,
+                            shadowColor: 'rgba(255, 255, 255, 0.5)'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderColor: 'rgba(147, 235, 248, 1)',
+                            borderWidth: 1,
+                            areaColor: '#323c48'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: '足迹',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        symbolSize: 10,
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        itemStyle: {
+                            color: '#f4e925',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        },
+                        data: []
+                    },
+                    {
+                        name: '路径',
+                        type: 'lines',
+                        coordinateSystem: 'geo',
+                        lineStyle: {
+                            color: '#ffa022',
+                            width: 2,
+                            opacity: 0.6,
+                            curveness: 0.3
+                        },
+                        effect: {
+                            show: true,
+                            constantSpeed: 30,
+                            symbol: 'arrow',
+                            symbolSize: 5,
+                            trailLength: 0,
+                            color: '#ffa022'
+                        },
+                        data: []
+                    }
+                ]
+            },
+            options: options
+        };
+
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+
+{"name":"学术谱系", "value":123.00},
+{"name":"关系", "value":57.00},
+{"name":"研究", "value":30.00},
+{"name":"传承", "value":28.00},
+{"name":"中国", "value":22.00},
+{"name":"科学家", "value":21.00},
+{"name":"学者", "value":17.00},
+{"name":"导师", "value":17.00},
+{"name":"共同体", "value":16.00},
+{"name":"师承", "value":16.00},
+{"name":"传统", "value":16.00},
+
+{"name":"知识", "value":12.00},
+{"name":"学生", "value":11.00},
+{"name":"科学", "value":11.00},
+{"name":"群体", "value":11.00},
+{"name":"学科", "value":10.00},
+
+
+{"name":"家谱", "value":9.00},
+
+{"name":"领域", "value":8.00},
+{"name":"指导", "value":8.00},
+{"name":"代际", "value":8.00},
+
+{"name":"博士", "value":8.00},
+
+{"name":"研究者", "value":7.00},
+
+{"name":"核心", "value":7.00},
+{"name":"结构", "value":7.00},
+{"name":"体系", "value":7.00},
+{"name":"族谱", "value":7.00},
+{"name":"老师", "value":6.00},
+{"name":"产生", "value":6.00},
+{"name":"影响", "value":6.00},
+{"name":"不同", "value":6.00},
+{"name":"范式", "value":6.00},
+
+{"name":"继承", "value":5.00},
+{"name":"家族", "value":5.00},
+
+{"name":"社会", "value":5.00},
+{"name":"网络", "value":5.00},
+
+{"name":"关联", "value":5.00},
+
+
+{"name":"学派", "value":5.00},
+
+{"name":"学术研究", "value":5.00},
+
+{"name":"共同", "value":5.00},
+{"name":"概念", "value":5.00},
+
+{"name":"思想", "value":5.00},
+{"name":"社会科学", "value":5.00},
+
+{"name":"大师", "value":4.00},
+{"name":"所谓", "value":4.00},
+{"name":"认同", "value":4.00},
+{"name":"意义", "value":4.00},
+{"name":"特征", "value":4.00},
+{"name":"方面", "value":4.00},
+{"name":"条件", "value":4.00},
+{"name":"需要", "value":4.00},
+{"name":"存在", "value":4.00},
+{"name":"成员", "value":4.00},
+{"name":"这些", "value":4.00},
+{"name":"过程", "value":4.00},
+{"name":"学术史", "value":4.00},
+
+{"name":"学术思想", "value":4.00},
+
+{"name":"学理", "value":4.00},
+
+
+{"name":"学人", "value":3.00},
+
+
+{"name":"血统", "value":3.00},
+{"name":"祖先", "value":3.00},
+
+{"name":"研究生", "value":3.00},
+
+{"name":"流派", "value":3.00},
+{"name":"建构", "value":3.00},
+{"name":"先生", "value":3.00},
+
+
+{"name":"血脉", "value":3.00},
+
+{"name":"范型", "value":3.00},
+{"name":"价值", "value":3.00},
+{"name":"儒家", "value":3.00},
+{"name":"基本", "value":3.00},
+{"name":"教育", "value":3.00},
+{"name":"史观", "value":3.00},
+{"name":"史料", "value":3.00},
+
+{"name":"哲学", "value":3.00},
+{"name":"美学", "value":3.00},
+{"name":"历代", "value":2.00},
+{"name":"本质", "value":2.00},
+{"name":"血缘关系", "value":2.00},
+{"name":"传授", "value":2.00},
+
+
+{"name":"中心", "value":2.00},
+{"name":"成就", "value":2.00},
+{"name":"培养", "value":2.00},
+{"name":"一流人才", "value":2.00},
+
+{"name":"权威", "value":2.00},
+
+{"name":"纲领", "value":2.00},
+{"name":"规范", "value":2.00},
+{"name":"科学知识", "value":2.00},
+
+{"name":"师徒关系", "value":1.00},
+
+{"name":"学缘", "value":13.00},
+
+
+{"name":"彼此间", "value":1.00},
+{"name":"前人", "value":1.00},
+{"name":"新一代", "value":1.00},
+
+{"name":"领军人物", "value":1.00},
+
+{"name":"延续", "value":1.00},
+
+{"name":"学术活动", "value":1.00},
+
+{"name":"其内", "value":1.00},
+{"name":"成熟", "value":1.00},
+{"name":"经典", "value":1.00},
+{"name":"外部", "value":1.00},
+
+{"name":"文化氛围", "value":1.00},
+{"name":"永恒", "value":1.00},
+
+{"name":"人才", "value":1.00},
+{"name":"聚集", "value":1.00},
+
+{"name":"社会关系", "value":1.00},
+{"name":"支撑", "value":1.00},
+
+{"name":"深层", "value":1.00},
+{"name":"现实", "value":1.00},
+{"name":"抽象", "value":1.00},
+{"name":"客观", "value":1.00},
+{"name":"详实", "value":1.00},
+{"name":"记载", "value":1.00},
+{"name":"发展史", "value":1.00},
+{"name":"一代代", "value":1.00},
+{"name":"科研", "value":1.00},
+{"name":"工作者", "value":1.00},
+{"name":"位置", "value":1.00},
+{"name":"如同", "value":1.00},
+{"name":"特殊", "value":1.00},
+{"name":"一脉相传", "value":1.00},
+
+{"name":"重要性", "value":1.00},
+{"name":"相传", "value":1.00},
+
+{"name":"自由", "value":1.00},
+{"name":"解释", "value":1.00},
+{"name":"树状", "value":1.00},
+{"name":"序列", "value":1.00},
+{"name":"一组", "value":1.00},
+{"name":"主题", "value":1.00},
+{"name":"研究成果", "value":1.00},
+{"name":"图谱", "value":1.00},
+{"name":"师生", "value":1.00},
+{"name":"领导", "value":1.00},

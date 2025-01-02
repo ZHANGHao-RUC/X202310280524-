@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学术足迹地图</title>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <!-- 引入中国地图数据 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <!-- 引入lightgallery CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery/dist/css/lightgallery.min.css">
+    <style>
+        #main {
+            width: 1000px;
+            height: 600px;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <!-- 引入lightgallery JS -->
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery/dist/js/lightgallery.min.js"></script>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'), 'dark'); // 使用暗色主题
+
+        var cityData = [
+            { name: '南京', value: [118.796877, 32.060255], description: '开始在南京大学任教', year: '2000', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '苏州', value: [120.585316, 31.298886], description: '参与苏州大学研究项目', year: '2002', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '无锡', value: [120.31191, 31.49117], description: '与无锡工业大学合作举办讲座', year: '2005', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '常州', value: [119.946973, 31.772752], description: '参加常州科技论坛', year: '2008', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '南通', value: [120.873801, 32.014665], description: '在南通大学进行学术交流', year: '2011', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '扬州', value: [119.412966, 32.39421], description: '访问扬州大学进行合作研究', year: '2014', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '徐州', value: [117.284124, 34.205768], description: '参加徐州医科大学研讨会', year: '2017', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '淮安', value: [119.021265, 33.597506], description: '淮安科技创新论坛主持', year: '2020', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '北京', value: [116.4074, 39.9042], description: '开始在中国科学院工作', year: '2000', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '上海', value: [121.4737, 31.2304], description: '参与在复旦大学的研究项目', year: '2002', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '成都', value: [104.0668, 30.6595], description: '在四川地震后进行科学考察', year: '2005', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '广州', value: [113.2644, 23.1291], description: '在广州的高校进行科研交流', year: '2008', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '长沙', value: [112.9823, 28.1941], description: '参与长沙的环境科学项目', year: '2011', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '西安', value: [108.9398, 34.3416], description: '在西安的大学进行科学研究和讲座', year: '2014', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '杭州', value: [120.1551, 30.2741], description: '参加在杭州举行的科技会议', year: '2017', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' },
+            { name: '武汉', value: [114.3054, 30.5931], description: '在华中科技大学进行学术讲座', year: '2020', image: 'https://th.bing.com/th/id/OIP.VvX96Lb_asFMofiXWlFSIgHaF6?rs=1&pid=ImgDetMain', extraDescription: '这里是更多的描述信息' }
+        ];
+
+        var options = cityData.map(function (item, index) {
+            var pointsData = cityData.slice(0, index + 1).map(function (point) {
+                return {
+                    name: point.name,
+                    value: point.value.concat([item.year]),
+                    description: (point.year <= item.year) ? point.description : '', // 只显示当前及之前年份的描述
+                    label: {
+                        show: (point.year <= item.year), // 根据年份判断是否显示标签
+                        formatter: '{b}: ' + point.description,
+                        position: 'right',
+                        color: '#fff'
+                    },
+                    symbol: `image://${point.image}`, // 添加图片到节点
+                    symbolSize: [20, 20], // 图片大小
+                    image: point.image, // 图片链接
+                    extraDescription: point.extraDescription // 更多描述信息
+                };
+            });
+
+            var linesData = [];
+            for (var i = 1; i <= index; i++) {
+                linesData.push({
+                    coords: [
+                        cityData[i - 1].value,
+                        cityData[i].value
+                    ]
+                });
+            }
+
+            return {
+                title: { text: item.year + '年 - ' + item.name },
+                series: [
+                    { data: pointsData },
+                    { data: linesData }
+                ]
+            };
+        });
+
+        var option = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    autoPlay: true,
+                    playInterval: 3000,
+                    data: cityData.map(function(item) { return item.year; }),
+                    label: {
+                        formatter: function (s) {
+                            return s;
+                        }
+                    }
+                },
+                title: {
+                    text: '学术足迹地图',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        var content = params.name + ': ' + params.marker + params.data.description + '<br>' +
+                                      '<a href="' + params.data.image + '" target="_blank">' +
+                                      '<img src="' + params.data.image + '" style="width: 200px; height: auto;" />' +
+                                      '</a><br>' + params.data.extraDescription; // 图片链接可以点击放大
+                        return content;
+                    }
+                },
+                geo: {
+                    map: 'china',
+                    center: [118.7632, 32.0617], // 初始焦点设置为江苏省
+                    zoom: 5, // 初始缩放级别
+                    roam: true,
+                    emphasis: {
+                        itemStyle: {
+                            areaColor: '#f4e925',
+                            shadowOffsetX: 0,
+                            shadowOffsetY: 0,
+                            shadowBlur: 20,
+                            borderWidth: 0,
+                            shadowColor: 'rgba(255, 255, 255, 0.5)'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            borderColor: 'rgba(147, 235, 248, 1)',
+                            borderWidth: 1,
+                            areaColor: '#323c48'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: '足迹',
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        symbolSize: 10,
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        itemStyle: {
+                            color: '#f4e925',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        },
+                        data: []
+                    },
+                    {
+                        name: '路径',
+                        type: 'lines',
+                        coordinateSystem: 'geo',
+                        lineStyle: {
+                            color: '#FFFF00',
+                            width: 2,
+                            opacity: 0.6,
+                            curveness: 0.3
+                        },
+                        effect: {
+                            show: true,
+                            constantSpeed: 30,
+                            symbol: 'arrow',
+                            symbolSize: 5,
+                            trailLength: 0,
+                            color: '#FFFF00'
+                        },
+                        data: []
+                    }
+                ]
+            },
+            options: options
+        };
+
+        myChart.setOption(option);
+
+        // 在渲染节点后激活lightgallery
+        myChart.getZr().on('click', function (params) {
+            if (params.target && params.target.data && params.target.data.image) {
+                lightGallery(document.querySelector('.lg-item'));
+            }
+        });
+
+        // 监听时间线变化并调整地图视角
+        myChart.on('timelinechanged', function (event) {
+            var selectedYear = cityData[event.currentIndex].year;
+            var selectedCity = cityData[event.currentIndex].value;
+            myChart.setOption({
+                geo: {
+                    center: selectedCity,
+                    zoom: 5 // 自动调整到该节点并放大
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html style="height: 100%; margin: 0; padding: 0;">
+<head>
+    <meta charset="utf-8">
+    <title>钱伟长学术谱系部分成员研究领域</title>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: auto;  /* 防止滚动条出现 */
+            background-color: #000000;
+        }
+        #main {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="main"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 定义错误处理函数
+    function handleError(error) {
+        console.error('An error occurred:', error);
+        document.body.innerHTML = 'Error loading chart data.';
+    }
+
+    // 异步加载JSON数据
+    fetch('sankey_data.json')
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(function(sankeyData) {
+            // 从links中提取所有的源节点名称，并排序
+            var sourceNames = [...new Set(sankeyData.links.map(function(link) {
+                return link.source;
+            }))].sort();
+
+            // 计算源节点的y坐标
+            var totalHeight = document.getElementById('main').offsetHeight;
+            var sourceNodeHeight = 30; // 假设每个节点的高度为30px
+            var nodeGap = 20; // 节点间隔
+            var yPositions = sourceNames.map((name, index) => {
+                return (index * (sourceNodeHeight + nodeGap));
+            });
+
+            // 设置桑基图的配置项
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    triggerOn: 'mousemove'
+                },
+                series: [
+                    {
+                        type: 'sankey',
+                        nodeWidth: 20,
+                        data: sankeyData.nodes.map(function(node, index) {
+                            // 为源节点设置y坐标
+                            var nodeData = {
+                                name: node.name,
+                                value: 1,
+                                y: sourceNames.indexOf(node.name) > -1 ? yPositions[sourceNames.indexOf(node.name)] : null
+                            };
+                            return nodeData;
+                        }),
+                        links: sankeyData.links,
+                        focus: 'adjacency',
+                        lineStyle: {
+                            curveness: 0.5
+                        },
+                        label: {
+                            show: true,
+                            position: 'right',
+                            color: '#fff',
+                            fontSize: 12
+                        }
+                    }
+                ]
+            };
+
+            // 打印调试信息
+            console.log('Source Nodes:', sourceNames);
+            console.log('Y Positions:', yPositions);
+            console.log('Option set:', option);
+
+            myChart.setOption(option);
+        })
+        .catch(handleError); // 处理任何可能发生的错误
+
+    // 捕获ECharts的错误
+    myChart.on('error', function(event) {
+        console.error('ECharts error:', event);
+        handleError(event.error); // 如果ECharts报告错误，也调用handleError函数
+    });
+</script>
+</body>
+</html>
+
+</body>
+</html>
